@@ -1,77 +1,110 @@
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+import Player from './Player.js';
+import Ground from './Ground.js';
+import CactusController from './CactusController.js';
 
-let dino = { x: 50, y: 150, width: 40, height: 40, velocityY: 0, jumping: false };
-let gravity = 1;
-let obstacles = [];
-let gameSpeed = 5;
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d')
 
-function jump() {
-  if (!dino.jumping) {
-    dino.velocityY = -15;
-    dino.jumping = true;
+const gameWidth = 800;
+const gameHeight = 200;
+
+const gameSpeedStart = 0.75;
+const gameSpeedIncrement = 0.00001;
+
+const playerWidth = 88 / 1.5;
+const playerHeight = 94 / 1.5;
+const minJumpHeight = 150;
+const maxJumpHeight = gameHeight;
+
+const groundWidth = 2400;
+const groundHeight = 24;
+const groundAndCactusSpeed = 0.5;
+
+const cactusConfig = [
+  {width:48 / 1.5, height: 100 / 1.5, image: 'images/cactus_1.png'}, 
+  {width:98 / 1.5, height: 100 / 1.5, image: 'images/cactus_2.png'},
+  {width:68 / 1.5, height: 70 / 1.5, image: 'images/cactus_3.png'},
+];
+
+let player = null;
+let ground = null;
+let cactusController = null;
+
+let scaleRatio = null;
+let previousTime = null;
+let gameSpeed = gameSpeedStart;
+
+function createSprites() {
+  const playerWidthInGame = playerWidth * scaleRatio;
+  const playerHeightInGame = playerHeight * scaleRatio;
+  const minJumpHeightInGame = minJumpHeight * scaleRatio;
+  const maxJumpHeightInGame = maxJumpHeight * scaleRatio;
+
+  const groundWidthInGame = groundWidth * scaleRatio;
+  const groundHeightInGame = groundHeight * scaleRatio;
+
+  player = new Player(ctx, playerWidthInGame, playerHeightInGame, minJumpHeightInGame, maxJumpHeightInGame, scaleRatio);
+  ground = new Ground(ctx, groundWidthInGame, groundHeightInGame, groundAndCactusSpeed, scaleRatio);
+}
+
+function setScreen() {
+  scaleRatio = getScaleRatio();
+  console.log(scaleRatio);
+  canvas.width = gameWidth * scaleRatio;
+  canvas.height = gameHeight * scaleRatio;
+  createSprites();
+}
+
+function getScaleRatio() {
+  const screenWidth = Math.min(
+    window.innerWidth,
+    document.documentElement.clientWidth
+  );
+  
+  const screenHeight = Math.min(
+    window.innerHeight,
+    document.documentElement.clientHeight
+  );
+
+  if (screenWidth / screenHeight < gameWidth / gameHeight) {
+    return screenWidth / gameWidth;
+  }
+  else {
+    return screenHeight / gameHeight;
   }
 }
 
-document.addEventListener('keydown', (e) => {
-  if (e.code === 'Space') jump();
-});
-
-function spawnObstacle() {
-  const obstacle = {
-    x: canvas.width,
-    y: 160,
-    width: 20,
-    height: 40
-  };
-  obstacles.push(obstacle);
+function clearScreen() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function update() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Dino physics
-  dino.y += dino.velocityY;
-  dino.velocityY += gravity;
-  if (dino.y > 150) {
-    dino.y = 150;
-    dino.jumping = false;
+function gameLoop(currentTime) {
+  if (previousTime === null) {
+    previousTime = currentTime;
+    requestAnimationFrame(gameLoop);
+    return;
   }
 
-  // Draw dino
-  ctx.fillStyle = "green";
-  ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+  const frameTimeDelta = currentTime - previousTime;
+  previousTime = currentTime;
 
-  // Obstacles
-  for (let i = 0; i < obstacles.length; i++) {
-    const obs = obstacles[i];
-    obs.x -= gameSpeed;
-    ctx.fillStyle = "red";
-    ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+  clearScreen()
 
-    // Collision
-    if (
-      dino.x < obs.x + obs.width &&
-      dino.x + dino.width > obs.x &&
-      dino.y < obs.y + obs.height &&
-      dino.y + dino.height > obs.y
-    ) {
-      alert("Game Over!");
-      document.location.reload();
-    }
-  }
+  player.update(gameSpeed, frameTimeDelta);
+  ground.update(gameSpeed, frameTimeDelta);
 
-  // Remove off-screen obstacles
-  obstacles = obstacles.filter(o => o.x + o.width > 0);
-}
+  player.draw();
+  ground.draw();
 
-setInterval(() => {
-  spawnObstacle();
-}, 1500);
-
-function gameLoop() {
-  update();
   requestAnimationFrame(gameLoop);
 }
 
-gameLoop();
+setScreen();
+window.addEventListener('resize', () => setTimeout(setScreen, 500));
+if (screen.orientation) {
+  screen.orientation.addEventListener('change', setScreen);
+}
+
+
+requestAnimationFrame(gameLoop);

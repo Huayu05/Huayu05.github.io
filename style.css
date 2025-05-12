@@ -1,13 +1,20 @@
+* {
+        padding: 0px;
+        margin: 0px;
+}
+
 body {
-        background: #f4f4f4;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         height: 100vh;
-        margin: 0;
+
+        user-select: none;
+        touch-action: none;
+        user-select: none;
+        outline: none;
 }
 
 canvas {
-        background: white;
-        border: 2px solid #333;
+        border: 2px solid grey;
 }
