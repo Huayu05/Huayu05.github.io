@@ -1,4 +1,4 @@
-Just my playground, don't be serious
+Just my playground, don't be serious.
 
 Dino Game : 
 https://huayu05.github.io/dino/
