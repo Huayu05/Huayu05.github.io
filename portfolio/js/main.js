@@ -30,7 +30,7 @@ function initLandingOverlay(bgVideoRefs) {
     const siteContent = document.getElementById("site-content");
     if (!overlay || !video || !siteContent)
         return;
-    video.src = "assets/videos/landing.mp4";
+    video.src = "assets/videos/Landing.mp4";
     overlay.addEventListener("click", () => {
         overlay.classList.add("fade-out");
         setTimeout(() => {
