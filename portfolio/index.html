@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Ong | Portfolio</title>
+  <title>Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,43 +12,48 @@
 </head>
 <body>
 
-  <video id="video-a" class="bg-video active" autoplay muted playsinline></video>
-  <video id="video-b" class="bg-video" autoplay muted playsinline></video>
-  <header>
-  </header>
-
-  <main>
-    <div class="side-label" id="side-label">PORTFOLIO</div>
-
-    <nav class="game-menu">
-      <a href="#skill" class="menu-item">Skill</a>
-      <a href="#item" class="menu-item">Item</a>
-      <a href="#equip" class="menu-item">Equip</a>
-      <a href="#persona" class="menu-item">Persona</a>
-      <a href="#stats" class="menu-item small">Stats</a>
-      <a href="#quest" class="menu-item small">Quest</a>
-      <a href="#sociallink" class="menu-item small">Social Link</a>
-      <a href="#calendar" class="menu-item small">Calendar</a>
-      <a href="#system" class="menu-item small">System</a>
-    </nav>
-
-    <div class="music-player" id="music-player">
-      <div class="now-playing">
-        <span id="track-title">Select a song</span>
-      </div>
-
-      <audio id="audio-el"></audio>
-
-      <div class="player-controls">
-        <button id="prev-btn">⏮</button>
-        <button id="play-btn">▶</button>
-        <button id="next-btn">⏭</button>
-      </div>
+  <div id="landing-overlay">
+    <video id="landing-video" autoplay muted loop playsinline></video>
+    <div class="press-start-block">
+      <span class="press-start-label">Huayu's Portfolio</span>
+      <span class="press-start-main">PRESS<br>TO<br>START</span>
     </div>
-  </main>
+  </div>
 
-  <footer>
-  </footer>
+  <video id="video-a" class="bg-video active" muted playsinline></video>
+  <video id="video-b" class="bg-video" muted playsinline></video>
+
+  <div id="site-content">
+    <main>
+      <div class="side-label" id="side-label">PORTFOLIO</div>
+
+      <nav class="game-menu">
+        <a href="#skill" class="menu-item">Skill</a>
+        <a href="#item" class="menu-item">Item</a>
+        <a href="#equip" class="menu-item">Equip</a>
+        <a href="#persona" class="menu-item">Persona</a>
+        <a href="#stats" class="menu-item small">Stats</a>
+        <a href="#quest" class="menu-item small">Quest</a>
+        <a href="#sociallink" class="menu-item small">Social Link</a>
+        <a href="#calendar" class="menu-item small">Calendar</a>
+        <a href="#system" class="menu-item small">System</a>
+      </nav>
+
+      <div class="music-player" id="music-player">
+        <div class="now-playing">
+          <span id="track-title">Select a song</span>
+        </div>
+
+        <audio id="audio-el"></audio>
+
+        <div class="player-controls">
+          <button id="prev-btn">⏮</button>
+          <button id="play-btn">▶</button>
+          <button id="next-btn">⏭</button>
+        </div>
+      </div>
+    </main>
+  </div>
 
   <script type="module" src="js/main.js"></script>
 </body>

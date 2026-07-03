@@ -1,21 +1,50 @@
 "use strict";
-window.addEventListener("DOMContentLoaded", () => {
+function prepareBackgroundVideo() {
     const videoA = document.getElementById("video-a");
     const videoB = document.getElementById("video-b");
     if (!videoA || !videoB)
-        return;
+        return null;
     const firstVideo = "assets/videos/P3R_Menu1.mp4";
     const loopVideo = "assets/videos/P3R_Menu2.mp4";
+    videoA.preload = "auto";
+    videoB.preload = "auto";
     videoA.src = firstVideo;
     videoB.src = loopVideo;
     videoB.loop = true;
-    videoA.play();
     videoA.addEventListener("ended", () => {
         videoB.currentTime = 0;
         videoB.play();
         videoB.classList.add("active");
         videoA.classList.remove("active");
     });
+    return { videoA, videoB };
+}
+function startBackgroundVideo(refs) {
+    if (!refs)
+        return;
+    refs.videoA.play();
+}
+function initLandingOverlay(bgVideoRefs) {
+    const overlay = document.getElementById("landing-overlay");
+    const video = document.getElementById("landing-video");
+    const siteContent = document.getElementById("site-content");
+    if (!overlay || !video || !siteContent)
+        return;
+    video.src = "assets/videos/landing.mp4";
+    overlay.addEventListener("click", () => {
+        overlay.classList.add("fade-out");
+        setTimeout(() => {
+            video.pause();
+            startBackgroundVideo(bgVideoRefs);
+        }, 600);
+        setTimeout(() => {
+            siteContent.classList.add("visible");
+        }, 2000);
+    }, { once: true });
+}
+window.addEventListener("DOMContentLoaded", () => {
+    const bgVideoRefs = prepareBackgroundVideo(); // starts loading immediately, doesn't play yet
+    initLandingOverlay(bgVideoRefs);
 });
 function fitVerticalLabel() {
     const el = document.getElementById("side-label");
@@ -55,7 +84,7 @@ function initMusicPlayer() {
     const trackTitle = document.getElementById("track-title");
     if (!audio || !playBtn || !prevBtn || !nextBtn || !trackTitle)
         return;
-    audio.volume = 0.5;
+    audio.volume = 0.3;
     let currentIndex = 0;
     function loadTrack(index, autoplay) {
         if (!audio || !trackTitle)
