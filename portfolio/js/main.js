@@ -17,4 +17,116 @@ window.addEventListener("DOMContentLoaded", () => {
         videoA.classList.remove("active");
     });
 });
+function fitVerticalLabel() {
+    const el = document.getElementById("side-label");
+    if (!el)
+        return;
+    const targetHeight = window.innerHeight * 0.8;
+    el.style.fontSize = "1px";
+    const naturalHeightAt1px = el.scrollHeight;
+    const fittedFontSize = targetHeight / naturalHeightAt1px;
+    el.style.fontSize = `${fittedFontSize}px`;
+}
+// Wait for fonts to actually finish loading before the first measurement
+document.fonts.ready.then(() => {
+    fitVerticalLabel();
+});
+// Debounce resize so rapid mobile resize events don't cause jittery/wrong recalculations
+let resizeTimeout;
+window.addEventListener("resize", () => {
+    window.clearTimeout(resizeTimeout);
+    resizeTimeout = window.setTimeout(fitVerticalLabel, 150);
+});
+// Also handle phone rotation explicitly
+window.addEventListener("orientationchange", () => {
+    window.setTimeout(fitVerticalLabel, 150);
+});
+// Edit this list with your actual files in assets/music/
+const tracks = [
+    { title: "Full Moon Full Life", file: "assets/musics/1-01-Full-Moon-Full-Life.mp3" },
+    { title: "When The Moon's Reaching Out Stars", file: "assets/musics/1-10-When-The-Moon's-Reaching-Out-Stars.mp3" },
+    { title: "Mass Destruction", file: "assets/musics/1-14-Mass-Destruction.mp3" },
+];
+function initMusicPlayer() {
+    const audio = document.getElementById("audio-el");
+    const playBtn = document.getElementById("play-btn");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const trackTitle = document.getElementById("track-title");
+    if (!audio || !playBtn || !prevBtn || !nextBtn || !trackTitle)
+        return;
+    audio.volume = 0.5;
+    let currentIndex = 0;
+    function loadTrack(index, autoplay) {
+        if (!audio || !trackTitle)
+            return;
+        currentIndex = index;
+        const track = tracks[currentIndex];
+        audio.src = track.file;
+        trackTitle.textContent = track.title;
+        updateMarquee();
+        if (autoplay) {
+            audio.play();
+            updatePlayButton();
+        }
+    }
+    function updateMarquee() {
+        if (!trackTitle)
+            return;
+        const container = trackTitle.parentElement;
+        if (!container)
+            return;
+        // Only scroll if the text is actually wider than its box
+        const isOverflowing = trackTitle.scrollWidth > container.clientWidth;
+        container.classList.toggle("scrolling", isOverflowing);
+    }
+    function updatePlayButton() {
+        if (!audio || !playBtn)
+            return;
+        playBtn.textContent = audio.paused ? "▶" : "⏸";
+    }
+    playBtn.addEventListener("click", () => {
+        if (!audio)
+            return;
+        if (audio.paused) {
+            audio.play();
+        }
+        else {
+            audio.pause();
+        }
+        updatePlayButton();
+    });
+    prevBtn.addEventListener("click", () => {
+        const newIndex = (currentIndex - 1 + tracks.length) % tracks.length;
+        loadTrack(newIndex, true);
+    });
+    nextBtn.addEventListener("click", () => {
+        const newIndex = (currentIndex + 1) % tracks.length;
+        loadTrack(newIndex, true);
+    });
+    audio.addEventListener("ended", () => {
+        const newIndex = (currentIndex + 1) % tracks.length;
+        loadTrack(newIndex, true);
+    });
+    const randomIndex = Math.floor(Math.random() * tracks.length);
+    loadTrack(randomIndex, false);
+    // Try autoplay immediately
+    audio.play()
+        .then(() => {
+        updatePlayButton();
+    })
+        .catch(() => {
+        // Browser blocked autoplay — wait for the first user interaction, then play
+        updatePlayButton();
+        const startOnInteraction = () => {
+            audio.play();
+            updatePlayButton();
+            document.removeEventListener("click", startOnInteraction);
+        };
+        document.addEventListener("click", startOnInteraction, { once: true });
+    });
+}
+window.addEventListener("DOMContentLoaded", initMusicPlayer);
+window.addEventListener("DOMContentLoaded", fitVerticalLabel);
+window.addEventListener("resize", fitVerticalLabel);
 //# sourceMappingURL=main.js.map

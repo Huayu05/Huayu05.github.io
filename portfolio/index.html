@@ -5,6 +5,9 @@
   <title>Ong | Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Anton&display=swap" rel="stylesheet">
   <link rel="icon" href="data:,">
 </head>
 <body>
@@ -15,7 +18,33 @@
   </header>
 
   <main>
-    <!-- your sections go here -->
+    <div class="side-label" id="side-label">PORTFOLIO</div>
+
+    <nav class="game-menu">
+      <a href="#skill" class="menu-item">Skill</a>
+      <a href="#item" class="menu-item">Item</a>
+      <a href="#equip" class="menu-item">Equip</a>
+      <a href="#persona" class="menu-item">Persona</a>
+      <a href="#stats" class="menu-item small">Stats</a>
+      <a href="#quest" class="menu-item small">Quest</a>
+      <a href="#sociallink" class="menu-item small">Social Link</a>
+      <a href="#calendar" class="menu-item small">Calendar</a>
+      <a href="#system" class="menu-item small">System</a>
+    </nav>
+
+    <div class="music-player" id="music-player">
+      <div class="now-playing">
+        <span id="track-title">Select a song</span>
+      </div>
+
+      <audio id="audio-el"></audio>
+
+      <div class="player-controls">
+        <button id="prev-btn">⏮</button>
+        <button id="play-btn">▶</button>
+        <button id="next-btn">⏭</button>
+      </div>
+    </div>
   </main>
 
   <footer>

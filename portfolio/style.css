@@ -1,3 +1,10 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background-color: #000;
+}
+
 .bg-video {
   position: absolute;
   top: 0;
@@ -5,10 +12,172 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% center; /* default: centered, for desktop */
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .bg-video.active {
   opacity: 1;
+}
+
+/* On smaller screens (phones/tablets), shift focus to 30% instead of center */
+@media (max-width: 768px) {
+  .bg-video {
+    object-position: 20% center;
+  }
+}
+
+/* --- Vertical side label --- */
+.side-label {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+  font-family: "Aktiv Grotesk Bold", "Archivo Black", "Oswald", sans-serif;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  color: rgba(128, 128, 128, 0.5);
+  white-space: nowrap;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .side-label {
+    color: rgba(128, 128, 128, 0.2);
+  }
+}
+
+/* --- Game-style menu --- */
+.game-menu {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  z-index: 10;
+}
+
+.menu-item {
+  font-family: "Aktiv Grotesk Bold", "Archivo Black", "Oswald", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #7ec8ff;
+  font-size: 2.2rem;
+  letter-spacing: 0.02em;
+  transform: skewX(-8deg);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.menu-item.small {
+  font-size: 1.4rem;
+  color: #4a9fd8;
+}
+
+.menu-item:hover {
+  color: #ffffff;
+  transform: skewX(-8deg) translateX(-6px);
+}
+
+/* Highlighted "active" item, like ITEM in the screenshot */
+.menu-item.active {
+  position: relative;
+  color: #ffffff;
+  padding: 2px 16px;
+}
+
+.menu-item.active::before {
+  content: "";
+  position: absolute;
+  inset: -4px -20px;
+  background: linear-gradient(100deg, #ff3b6b 0%, #ffffff 45%, #ffffff 55%, #ff3b6b 100%);
+  transform: skewX(-15deg);
+  z-index: -1;
+}
+
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  height: 70px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 20;
+  overflow: hidden;
+}
+
+/* On phones, cap width at 70% of viewport so it doesn't overlap the side label */
+@media (max-width: 768px) {
+  .music-player {
+    width: 70vw;
+    max-width: 60vw;
+  }
+}
+
+.now-playing {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.now-playing span {
+  display: inline-block;
+  font-family: "Aktiv Grotesk Bold", "Archivo Black", "Oswald", sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  animation: marquee 19s linear infinite;
+  animation-play-state: paused;
+}
+
+.now-playing.scrolling span {
+  animation-play-state: running;
+}
+
+@keyframes marquee {
+  0%, 5% {
+    transform: translateX(0);       /* rest at normal position, ~1s */
+  }
+  45% {
+    transform: translateX(-100%);   /* scrolled fully off to the left */
+  }
+  45.01% {
+    transform: translateX(100%);    /* instant jump to just off-screen right */
+  }
+  85%, 100% {
+    transform: translateX(0);       /* slides back to normal, then rests ~2s */
+  }
+}
+
+.player-controls {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.player-controls button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.player-controls button:hover {
+  color: #7ec8ff;
 }
