@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Music player — fixed widget, bottom-right
+   ========================================================================== */
+
+.music-player {
+  position: fixed;
+  bottom: 8vh;
+  width: 320px;
+  right: 8vw;
+  height: 70px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.now-playing {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.now-playing span {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  animation: marquee 19s linear infinite;
+  animation-play-state: paused;
+}
+
+.now-playing.scrolling span {
+  animation-play-state: running;
+}
+
+.player-controls {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.player-controls button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.player-controls button:hover {
+  color: var(--color-accent-blue-light);
+}
+
+/* On phones, cap width at 70% of viewport so it doesn't overlap the side label */
+@media (max-width: 768px) {
+  .music-player {
+    right: 20px;
+    bottom: 20px;
+    width: 50vw;
+  }
+}
+
+/* Total duration 19s: ~1s rest -> ~7.6s scroll left off-screen
+   -> instant reset to the right -> ~6.65s scroll back -> ~3.8s rest */
+@keyframes marquee {
+  0%, 5% {
+    transform: translateX(0);
+  }
+  45% {
+    transform: translateX(-100%);
+  }
+  45.01% {
+    transform: translateX(100%);
+  }
+  80%, 100% {
+    transform: translateX(0);
+  }
+}

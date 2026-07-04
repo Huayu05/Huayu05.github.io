@@ -1,0 +1,27 @@
+/* ==========================================================================
+   Base — resets, shared variables (fonts, colors), page-level structure
+   Shared responsive breakpoint used across component files: 768px
+   ========================================================================== */
+
+:root {
+  --font-display: "Anton", "Archivo Black", "Aktiv Grotesk Bold", sans-serif;
+  --color-accent-blue: #4a9fd8;
+  --color-accent-blue-light: #7ec8ff;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background-color: #000;
+}
+
+/* Main site wrapper — fades in after the landing overlay is dismissed */
+#site-content {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+#site-content.visible {
+  opacity: 1;
+}

@@ -1,0 +1,26 @@
+/* ==========================================================================
+   Background video — two stacked videos crossfading (menu1 -> menu2 loop)
+   ========================================================================== */
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% center; /* default: centered, for desktop */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bg-video.active {
+  opacity: 1;
+}
+
+/* On smaller screens (phones/tablets), shift focus left instead of center */
+@media (max-width: 768px) {
+  .bg-video {
+    object-position: 20% center;
+  }
+}

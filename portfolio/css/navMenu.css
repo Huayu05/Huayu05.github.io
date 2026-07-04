@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Game-style nav menu (Skill / Item / Equip / Persona / Stats / Quest ...)
+   ========================================================================== */
+
+.game-menu {
+  position: fixed;
+  right: 8vw;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  z-index: 10;
+}
+
+.menu-item {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-accent-blue-light);
+  font-size: 2.4rem;
+  letter-spacing: 0.15em;
+  transform: skewX(-8deg);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.menu-item.small {
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  color: var(--color-accent-blue);
+}
+
+.menu-item:hover {
+  color: #ffffff;
+  transform: skewX(-8deg) translateX(-6px);
+}
+
+/* Highlighted "active" item — diagonal red/white banner behind the label */
+.menu-item.active {
+  position: relative;
+  color: #ffffff;
+  padding: 2px 16px;
+}
+
+.menu-item.active::before {
+  content: "";
+  position: absolute;
+  inset: -4px -20px;
+  background: linear-gradient(100deg, #ff3b6b 0%, #ffffff 45%, #ffffff 55%, #ff3b6b 100%);
+  transform: skewX(-15deg);
+  z-index: -1;
+}
+
+/* Phone dedicated style sheet*/
+@media (max-width: 768px) {
+  .game-menu {
+    right: 40px;
+  }
+
+  .menu-item {
+    font-size: 1.8rem;
+  }
+
+  .menu-item.small {
+    font-size: 1rem;
+  }
+}
