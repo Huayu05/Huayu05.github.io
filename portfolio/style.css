@@ -141,7 +141,7 @@ html, body {
 /* --- Game-style menu --- */
 .game-menu {
   position: fixed;
-  right: 40px;
+  right: 8vw;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -149,6 +149,12 @@ html, body {
   align-items: flex-end;
   gap: 4px;
   z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .game-menu {
+    right: 40px;
+  }
 }
 
 .menu-item {
@@ -192,9 +198,9 @@ html, body {
 
 .music-player {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 8vh;
   width: 320px;
+  right: 8vw;
   height: 70px;
   background: rgba(0, 0, 0, 0.4);
   color: #fff;
@@ -210,6 +216,8 @@ html, body {
 /* On phones, cap width at 70% of viewport so it doesn't overlap the side label */
 @media (max-width: 768px) {
   .music-player {
+    right: 20px;
+    bottom: 20px;
     width: 70vw;
     max-width: 60vw;
   }
