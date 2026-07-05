@@ -2,11 +2,12 @@ import { prepareBackgroundVideo } from "./backgroundVideo.js";
 import { initLandingOverlay } from "./landing.js";
 import { initSideLabel } from "./sideLabel.js";
 import { MusicPlayer } from "./musicPlayer.js";
+import { initPageSections } from "./pageSections.js";
 window.addEventListener("DOMContentLoaded", () => {
-    // List of VideoA and VideoB reference
-    const bgVideoRefs = prepareBackgroundVideo();
+    const bgVideoRefs = prepareBackgroundVideo(); // starts loading immediately, doesn't play yet
     initLandingOverlay(bgVideoRefs);
     initSideLabel();
+    initPageSections();
     const musicPlayer = MusicPlayer.create();
     musicPlayer === null || musicPlayer === void 0 ? void 0 : musicPlayer.init();
 });
