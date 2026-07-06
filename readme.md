@@ -1,7 +1,7 @@
 Just my playground, don't be serious.
 
 Dino Game : 
-https://huayu05.github.io/dino/
+<a href="./portfolio/">https://huayu05.github.io/dino/</a>
 
 Portfolio (Under Construction) :
-https://huayu05.github.io/portfolio/
+<a href="./portfolio/">https://huayu05.github.io/portfolio/</a>
