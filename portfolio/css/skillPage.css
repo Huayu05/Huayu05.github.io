@@ -1,0 +1,62 @@
+/* ==========================================================================
+   #skill page-specific content — discrete step-scroll list,
+   purple bars built in CSS (not part of the video/image)
+   ========================================================================== */
+
+#skill.skill-viewport {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  overflow: hidden;
+  height: calc(8 * 56px);
+}
+
+#skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: transform 0.4s ease;
+  gap: 0px;
+}
+
+#skill.skill-item {
+  position: relative;
+  width: 35vw;
+  height: 56px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle, #000 45%, transparent 46%) top -10px left -10px / 20px 20px no-repeat,
+    radial-gradient(circle, #000 45%, transparent 46%) top -10px right -10px / 20px 20px no-repeat,
+    radial-gradient(circle, #000 45%, transparent 46%) bottom -10px left -10px / 20px 20px no-repeat,
+    radial-gradient(circle, #000 45%, transparent 46%) bottom -10px right -10px / 20px 20px no-repeat,
+    linear-gradient(180deg, #5a4bc4dd 0%, #3d2f96dd 100%);  border-bottom: 2px solid #111111;
+  border-left: 2px solid #111111;
+  border-right: 2px solid #111111;
+  color: #ffffff;
+  font-family: var(--font-page);
+  font-size: 20px;
+  padding-left: 2vw;
+  transition: opacity 0.4s ease;
+  display: flex;
+  align-items: left;
+  gap: 12px;
+}
+
+.skill-icon-box {
+  display: flex;
+  width: 10vw;
+  height: 60%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background: #9588f7;
+  border-radius: 5px;
+  font-size: 1.7vw;
+}
+
+#skill.skill-item:first-child {
+  border-top: 2px solid #111111;
+}

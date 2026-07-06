@@ -1,6 +1,7 @@
 // Add more entries here as you build out other full-page sections
 const PAGE_SECTIONS = [
     { id: "persona", videoSrc: "assets/videos/Persona.mp4" },
+    { id: "skill", videoSrc: "assets/videos/Skill.mp4" },
 ];
 /** Shows the page section matching the current hash, hides/pauses all others. */
 function showSection(activeId) {

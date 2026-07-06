@@ -11,9 +11,11 @@
   <link rel="stylesheet" href="css/navMenu.css">
   <link rel="stylesheet" href="css/musicPlayer.css">  
   <link rel="stylesheet" href="css/pageSections.css">
+  <link rel="stylesheet" href="css/personaPage.css">
+  <link rel="stylesheet" href="css/skillPage.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Anton&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&family=Archivo+Black&family=Anton&display=swap">
   <link rel="icon" href="data:,">
 </head>
 <body>
@@ -29,16 +31,39 @@
   <video id="video-a" class="bg-video active" muted playsinline></video>
   <video id="video-b" class="bg-video" muted playsinline></video>
 
-  <section id="persona" class="page-section">
-    <video class="page-video" muted playsinline></video>
-    <div class="page-content">
-      <div class="page-content-inner">
+  <section class="page-section" id="persona">
+    <video class="page-video" id="persona" muted playsinline></video>
+    <div class="page-content" id="persona">
+      <div class="page-content-inner" id="persona">
         <h2>Ong Hua Yu</h2>
         <ul>
           <li>Computer Science Undergraduate Student @ University of Southampton Malaysia</li>
           <li>Currently interested on Computer Vision and Internet of Things</li>
           <li>Seeking internship opportunities to gain real-world experience</li>
           <li>Founder & President, UoSM Cards & Boardgames Club</li>
+        </ul>
+      </div>
+      <a href="#" class="page-close" id="persona">Back</a>
+    </div>
+  </section>
+
+  <section class="page-section" id="skill">
+    <video class="page-video" id="skill" muted playsinline></video>
+    <div class="page-content" id="skill">
+
+      <div class="skill-viewport" id="skill">
+        <ul class="skill-list" id="skill-list">
+          <li class="skill-item" id="skill">Java</li>
+          <li class="skill-item" id="skill">SQL & Database</li>
+          <li class="skill-item" id="skill">React / Node.js</li>
+          <li class="skill-item" id="skill">Embedded System</li>
+          <li class="skill-item" id="skill">Skill Name 5</li>
+          <li class="skill-item" id="skill">Skill Name 6</li>
+          <li class="skill-item" id="skill">Skill Name 7</li>
+          <li class="skill-item" id="skill">
+            <span class="skill-icon-box">Hii</span>
+            <span class="skill-name">TypeScript / JavaScript</span>
+          </li>
         </ul>
       </div>
       <a href="#" class="page-close">Back</a>

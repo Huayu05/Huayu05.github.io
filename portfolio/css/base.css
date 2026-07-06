@@ -5,6 +5,7 @@
 
 :root {
   --font-display: "Anton", "Archivo Black", "Aktiv Grotesk Bold", sans-serif;
+  --font-page: "Arsenal", "Anton", "Archivo Black", sans-serif;
   --color-accent-blue: #4a9fd8;
   --color-accent-blue-light: #7ec8ff;
 }

@@ -1,4 +1,4 @@
-Just my playground, don't be serious.
+Just my playground, don't be too serious.
 
 Dino Game : 
 <a href="./portfolio/">https://huayu05.github.io/dino/</a>
