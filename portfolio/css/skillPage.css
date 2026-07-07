@@ -19,6 +19,16 @@
   gap: 0px;
 }
 
+#skill.skill-label {
+  position: absolute;
+  top: 15%;
+  left: 32%;
+  color: #5a4bc4dd;
+  font-size: 3vw;
+  font-family: var(--font-display);
+  letter-spacing: 4px;
+}
+
 #skill.skill-item {
   position: relative;
   width: 35vw;
@@ -55,6 +65,67 @@
   background: #9588f7;
   border-radius: 5px;
   font-size: 1.7vw;
+}
+
+.name-box-shadow {
+  top: 3vh;
+  left: 3vw;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: 18vw;
+  height: 15vh;
+  content: "";
+  position: absolute;
+  background: linear-gradient(120deg, #7f77dd 0%, #378ade 50%, #7f77dd 100%);
+  transform: rotate(-5deg), translateY(-40px);
+  transition: transform 5s ease 5s;
+}
+
+.name-box {
+  justify-self: center;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  background-color: #000000;
+  width: 15vw;
+  height: 12vh;
+  transform: rotate(4deg);
+}
+
+.name-box-header {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 4px;
+  border-bottom: 2px solid #b39ddb;
+}
+
+.name-box-label {
+  font-family: var(--font-page);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #b39ddb;
+}
+
+.name-box-level {
+  justify-self:self-end;
+  font-family: var(--font-page);
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #ffffff;
+}
+
+.name-box-name {
+  display: block;
+  justify-self: center;
+  font-family: var(--font-page);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #b39ddb;
 }
 
 #skill.skill-item:first-child {
