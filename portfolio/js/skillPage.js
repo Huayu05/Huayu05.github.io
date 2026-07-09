@@ -1,8 +1,12 @@
-const ROW_HEIGHT = 56; // must match .skill-item's height in CSS
-const STEP_COOLDOWN_MS = 100; // slightly longer than the CSS transition, prevents double-steps
-const MIN_VISIBLE_ROWS = 3; // never show fewer than this, even on very short screens
-const MAX_VISIBLE_ROWS = 8; // never show more than this, even on tall screens
-const VIEWPORT_HEIGHT_RATIO = 0.6; // use up to 60% of window height for the list
+const ROW_HEIGHT = 56;
+const MOBILE_ROW_HEIGHT = 38;
+const MOBILE_BREAKPOINT = 768;
+const STEP_COOLDOWN_MS = 100;
+const MIN_VISIBLE_ROWS = 3;
+const MAX_VISIBLE_ROWS = 8;
+const MOBILE_MAX_VISIBLE_ROWS = 12;
+const VIEWPORT_HEIGHT_RATIO = 0.6;
+const SWIPE_THRESHOLD_PX = 24;
 export function initSkillList() {
     const viewport = document.querySelector(".skill-viewport");
     const list = document.getElementById("skill-list");
@@ -13,14 +17,23 @@ export function initSkillList() {
     let currentIndex = 0;
     let isAnimating = false;
     let visibleRows = MAX_VISIBLE_ROWS;
+    let rowHeight = ROW_HEIGHT;
+    function getRowHeight() {
+        return window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_ROW_HEIGHT : ROW_HEIGHT;
+    }
+    function getMaxVisibleRows() {
+        return window.innerWidth <= MOBILE_BREAKPOINT ? MOBILE_MAX_VISIBLE_ROWS : MAX_VISIBLE_ROWS;
+    }
     function calculateVisibleRows() {
+        rowHeight = getRowHeight();
+        const maxRows = getMaxVisibleRows();
         const availableHeight = window.innerHeight * VIEWPORT_HEIGHT_RATIO;
-        const fittingRows = Math.floor(availableHeight / ROW_HEIGHT);
-        visibleRows = Math.min(MAX_VISIBLE_ROWS, Math.max(MIN_VISIBLE_ROWS, fittingRows));
-        viewport.style.height = `${visibleRows * ROW_HEIGHT}px`;
+        const fittingRows = Math.floor(availableHeight / rowHeight);
+        visibleRows = Math.min(maxRows, Math.max(MIN_VISIBLE_ROWS, fittingRows));
+        viewport.style.height = `${visibleRows * rowHeight}px`;
     }
     function updatePosition() {
-        list.style.transform = `translateY(-${currentIndex * ROW_HEIGHT}px)`;
+        list.style.transform = `translateY(-${currentIndex * rowHeight}px)`;
         items.forEach((item, i) => {
             item.classList.toggle("faded", i < currentIndex);
         });
@@ -57,6 +70,29 @@ export function initSkillList() {
         event.preventDefault();
         step(event.deltaY > 0 ? 1 : -1);
     }, { passive: false });
+    // --- Touch / swipe support (phones don't fire wheel events) ---
+    let touchStartY = null;
+    let touchHandled = false;
+    viewport.addEventListener("touchstart", (event) => {
+        touchStartY = event.touches[0].clientY;
+        touchHandled = false;
+    }, { passive: true });
+    viewport.addEventListener("touchmove", (event) => {
+        if (touchStartY === null || touchHandled) {
+            event.preventDefault();
+            return;
+        }
+        const deltaY = touchStartY - event.touches[0].clientY;
+        if (Math.abs(deltaY) >= SWIPE_THRESHOLD_PX) {
+            touchHandled = true;
+            step(deltaY > 0 ? 1 : -1);
+        }
+        event.preventDefault();
+    }, { passive: false });
+    viewport.addEventListener("touchend", () => {
+        touchStartY = null;
+        touchHandled = false;
+    }, { passive: true });
     viewport.setAttribute("tabindex", "0");
     viewport.addEventListener("keydown", (event) => {
         if (event.key === "ArrowDown") {

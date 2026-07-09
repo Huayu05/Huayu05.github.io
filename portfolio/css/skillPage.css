@@ -9,6 +9,7 @@
   left: 10%;
   overflow: hidden;
   height: calc(8 * 56px);
+  touch-action: none;
 }
 
 #skill-list {
@@ -141,3 +142,65 @@
 #skill.skill-item:first-child {
   border-top: 2px solid #111111;
 }
+
+@media (max-width: 768px) {
+  .name-box-shadow {
+    width: 35vw;
+    height: 9vh;
+  }
+
+  .name-box {
+    width: 30vw;
+    height: 7vh;
+  }
+
+  .name-box-header {
+    border-bottom: 1px solid #b39ddb;
+  }
+
+  .name-box-label {
+    font-size: 2vw;
+  }
+
+  .name-box-level {
+    font-size: 4vw;
+  }
+
+  .name-box-name {
+    position: absolute;
+    display: block;
+    justify-self: center;
+    font-size: 5vw;
+  }
+
+  #skill.skill-label {
+    top: 20%;
+    left: 15%;
+    font-size: 8vw;
+    letter-spacing: 2px;
+  }
+
+  #skill.skill-item {
+    width: 70vw;
+    height: 38px;
+    background:
+      radial-gradient(circle, #000 45%, transparent 46%) top -8px left -8px / 16px 16px no-repeat,
+      radial-gradient(circle, #000 45%, transparent 46%) top -8px right -8px / 16px 16px no-repeat,
+      radial-gradient(circle, #000 45%, transparent 46%) bottom -8px left -8px / 16px 16px no-repeat,
+      radial-gradient(circle, #000 45%, transparent 46%) bottom -8px right -8px / 16px 16px no-repeat,
+      linear-gradient(180deg, #5a4bc4dd 0%, #3d2f96dd 100%);  border-bottom: 2px solid #111111;
+    font-size: 3vw;
+  }
+
+  .skill-icon-box {
+    width: 20%;
+    font-size: 3.2vw;
+  }
+
+  #skill.skill-scroll {
+    font-size: 3vw;
+    font-weight: lighter;
+  }
+}
+
+
