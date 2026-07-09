@@ -79,7 +79,7 @@
 }
 
 .name-box-shadow {
-  top: 3vh;
+  top: 10vh;
   left: 3vw;
   justify-content: center;
   align-items: center;
@@ -89,11 +89,12 @@
   content: "";
   position: absolute;
   background: linear-gradient(120deg, #7f77dd 0%, #378ade 50%, #7f77dd 100%);
-  transform: rotate(-5deg), translateY(-40px);
+  transform: rotate(-5deg) translateY(-40px);
   transition: transform 5s ease 5s;
 }
 
 .name-box {
+  position: relative;
   justify-self: center;
   padding-left: 1vw;
   padding-right: 1vw;
@@ -101,6 +102,7 @@
   width: 15vw;
   height: 12vh;
   transform: rotate(4deg);
+  text-align: center;
 }
 
 .name-box-header {
@@ -167,9 +169,7 @@
   }
 
   .name-box-name {
-    position: absolute;
     display: block;
-    justify-self: center;
     font-size: 5vw;
   }
 
@@ -193,13 +193,8 @@
   }
 
   .skill-icon-box {
-    width: 20%;
+    height: 60%;
     font-size: 3.2vw;
-  }
-
-  #skill.skill-scroll {
-    font-size: 3vw;
-    font-weight: lighter;
   }
 }
 
